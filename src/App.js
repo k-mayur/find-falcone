@@ -1,9 +1,8 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  return <div className="App">Find Falcone</div>;
+  return <div className="App">Home</div>;
 }
 
 export default App;
