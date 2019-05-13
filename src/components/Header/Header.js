@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const header = props => {
   return (
@@ -9,6 +9,9 @@ const header = props => {
       </div>
       <div>
         <button data-test="resetBtn">Reset</button>
+        <Link to="/">
+          <button data-test="homeBtn">Home</button>
+        </Link>
       </div>
     </div>
   );

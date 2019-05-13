@@ -9,3 +9,11 @@ describe("Header", () => {
     cy.contains("Select planets you want to search in :");
   });
 });
+
+describe("Footer", () => {
+  it("Footer title exist", () => {
+    cy.visit("http://localhost:3000");
+    cy.contains("Coding problem");
+    cy.get('[data-test="footerLink"]');
+  });
+});
