@@ -1,4 +1,5 @@
 import React from "react";
+//import { Link } from "react-router-dom";
 
 const header = props => {
   return (
@@ -6,7 +7,9 @@ const header = props => {
       <div>
         <h2>Finding {props.name}</h2>
       </div>
-      <div />
+      <div>
+        <button data-test="resetBtn">Reset</button>
+      </div>
     </div>
   );
 };
