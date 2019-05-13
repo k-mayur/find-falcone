@@ -14,9 +14,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        Find {this.state.name}
         <BrowserRouter>
-          <Header />
+          <Header name={this.state.name} />
           <Switch>
             <Route path="/" component={Home} exact />
             <Route path="/result" component={Result} exact />
