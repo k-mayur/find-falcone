@@ -16,10 +16,20 @@ class Home extends React.Component {
     $(`#d${n}`).html("");
     if (planetDistance !== "") {
       this.props.vehicle.vehicles.map(vehicle => {
-        console.log(vehicle);
-        return $(`#d${n}`).append(
-          '<input type="radio">' + vehicle.name + "</input>"
-        );
+        if (vehicle.max_distance >= planetDistance) {
+          return $(`#d${n}`).append(
+            '<input type="radio" name="radio' +
+              n +
+              '" >' +
+              vehicle.name +
+              " (" +
+              vehicle.total_no +
+              ") " +
+              "</input>"
+          );
+        } else {
+          return null;
+        }
       });
     }
   };
@@ -46,40 +56,29 @@ class Home extends React.Component {
       );
     });
 
+    const tempArr = [1, 2, 3, 4];
+
+    const dropdowns = tempArr.map(i => {
+      let id1 = `s${i}`;
+      let id2 = `d${i}`;
+      return (
+        <div key={i}>
+          <select onChange={() => this.populateVehicles(i)} id={id1}>
+            <option value="">select planet</option>
+            {planetsDropdown}
+          </select>
+          <div id={id2} />
+        </div>
+      );
+    });
+
     return (
       <div>
         <div>
           <h4>Select planets you want to search in :</h4>
 
           <form data-test="findForm" onSubmit={this.findHandle}>
-            <div>
-              <select onChange={() => this.populateVehicles(1)} id="s1">
-                <option value="">select planet</option>
-                {planetsDropdown}
-              </select>
-              <div id="d1" />
-            </div>
-            <div>
-              <select onChange={() => this.populateVehicles(2)} id="s2">
-                <option value="">select planet</option>
-                {planetsDropdown}
-              </select>
-              <div id="d2" />
-            </div>
-            <div>
-              <select onChange={() => this.populateVehicles(3)} id="s3">
-                <option value="">select planet</option>
-                {planetsDropdown}
-              </select>
-              <div id="d3" />
-            </div>
-            <div>
-              <select onChange={() => this.populateVehicles(4)} id="s4">
-                <option value="">select planet</option>
-                {planetsDropdown}
-              </select>
-              <div id="d4" />
-            </div>
+            {dropdowns}
             <button type="submit">Find</button>
           </form>
         </div>
