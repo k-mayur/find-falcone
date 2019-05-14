@@ -17,8 +17,10 @@ class Home extends React.Component {
     if (planetDistance !== "") {
       this.props.vehicle.vehicles.map(vehicle => {
         if (vehicle.max_distance >= planetDistance) {
-          return $(`#d${n}`).append(
-            '<input type="radio" name="radio' +
+          const radios = $(`#d${n}`).append(
+            '<input type="radio" id="' +
+              vehicle.name +
+              '" name="radio' +
               n +
               '" >' +
               vehicle.name +
@@ -27,11 +29,17 @@ class Home extends React.Component {
               ") " +
               "</input>"
           );
+
+          return radios;
         } else {
           return null;
         }
       });
     }
+  };
+
+  radioClick = vehicle => {
+    console.log("hi", vehicle);
   };
 
   getData = () => {
@@ -67,7 +75,7 @@ class Home extends React.Component {
             <option value="">select planet</option>
             {planetsDropdown}
           </select>
-          <div id={id2} />
+          <div id={id2} onClick={e => this.radioClick(e.target.id)} />
         </div>
       );
     });
