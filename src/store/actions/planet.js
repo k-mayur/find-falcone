@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PLANETS } from "./actionTypes";
+import { GET_PLANETS, FIND_RESULT } from "./actionTypes";
 
 export const getPlanets = () => dispatch => {
   axios
@@ -38,6 +38,12 @@ export const findHandler = (planetNames, vehicleNames) => dispatch => {
         .post("https://findfalcone.herokuapp.com/find", data, config)
         .then(res => {
           console.log(res);
-        });
-    });
+          dispatch({
+            type: FIND_RESULT,
+            payload: res.data
+          });
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 };

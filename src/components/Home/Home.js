@@ -7,19 +7,32 @@ import $ from "jquery";
 class Home extends React.Component {
   findHandle = e => {
     e.preventDefault();
-    const planetNames = [
-      $("#s1").val(),
-      $("#s2").val(),
-      $("#s3").val(),
-      $("#s4").val()
-    ];
-    const vehicleNames = [
-      $("input[name=1]:checked").val(),
-      $("input[name=2]:checked").val(),
-      $("input[name=3]:checked").val(),
-      $("input[name=4]:checked").val()
-    ];
-    this.props.findHandler(planetNames, vehicleNames);
+    if (
+      $("#s1").val() === undefined ||
+      $("#s2").val() === undefined ||
+      $("#s3").val() === undefined ||
+      $("#s4").val() === undefined ||
+      $("input[name=1]:checked").val() === undefined ||
+      $("input[name=2]:checked").val() === undefined ||
+      $("input[name=3]:checked").val() === undefined ||
+      $("input[name=4]:checked").val() === undefined
+    ) {
+      alert("please enter valid input");
+    } else {
+      const planetNames = [
+        $("#s1").val(),
+        $("#s2").val(),
+        $("#s3").val(),
+        $("#s4").val()
+      ];
+      const vehicleNames = [
+        $("input[name=1]:checked").val(),
+        $("input[name=2]:checked").val(),
+        $("input[name=3]:checked").val(),
+        $("input[name=4]:checked").val()
+      ];
+      this.props.findHandler(planetNames, vehicleNames);
+    }
   };
 
   populateVehicles = n => {
@@ -73,6 +86,13 @@ class Home extends React.Component {
 
   componentDidMount = () => {
     this.getData();
+  };
+
+  componentDidUpdate = () => {
+    let { redirect } = this.props.planet;
+    if (redirect === true) {
+      this.props.history.push("/result");
+    }
   };
 
   render() {
