@@ -1,10 +1,15 @@
 import React from "react";
 import { mount } from "enzyme";
-import App from "../../src/App";
+import Footer from "../../src/components/Footer/Footer";
+import Header from "../../src/components/Header/Header";
 
 describe("App", () => {
-  it("renders header", () => {
-    const wrapper = mount(<App />);
-    expect(wrapper.find(".App").text()).toContain("Finding Falcone");
+  // it("renders header", () => {
+  //   const wrapper = mount(<Header />);
+  //   expect(wrapper.find(".header").text()).toContain("Finding Falcone");
+  // });
+  it("renders footer", () => {
+    const wrapper = mount(<Footer />);
+    expect(wrapper.find(".footer").text()).toContain("Coding problem");
   });
 });

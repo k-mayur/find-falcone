@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const header = props => {
   return (
-    <div>
+    <div className="header">
       <div>
         <h2>Finding {props.name}</h2>
       </div>
@@ -17,4 +17,4 @@ const header = props => {
   );
 };
 
-export default header;
+export default withRouter(header);

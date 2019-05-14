@@ -17,3 +17,11 @@ describe("Footer", () => {
     cy.get('[data-test="footerLink"]');
   });
 });
+
+describe("Home", () => {
+  it("finding form exist", () => {
+    cy.visit("http://localhost:3000");
+    cy.contains("Select planets you want to search in :");
+    cy.get('[data-test="findForm"]').submit();
+  });
+});
