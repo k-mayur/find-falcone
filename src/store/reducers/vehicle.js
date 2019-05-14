@@ -7,7 +7,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_VEHICLES:
-      let vehicles = Object.assign([], action.payload.vehicles);
+      let vehicles = Object.assign([], action.payload);
       return {
         ...state,
         vehicles: vehicles
