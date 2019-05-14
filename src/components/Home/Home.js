@@ -1,17 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
 import { findHandler, getPlanets } from "../../store/actions/planet";
-import { getVehicles } from "../../store/actions/vehicle";
+import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
 import $ from "jquery";
 
 class Home extends React.Component {
   findHandle = e => {
     e.preventDefault();
-    this.props.findHandler();
+    const planetNames = [
+      $("#s1").val(),
+      $("#s2").val(),
+      $("#s3").val(),
+      $("#s4").val()
+    ];
+    const vehicleNames = [
+      $("input[name=1]:checked").val(),
+      $("input[name=2]:checked").val(),
+      $("input[name=3]:checked").val(),
+      $("input[name=4]:checked").val()
+    ];
+    this.props.findHandler(planetNames, vehicleNames);
   };
 
   populateVehicles = n => {
-    const planetDistance = $(`#s${n}`).val();
+    const planetName = $(`#s${n}`).val();
+    const planetDistance = this.props.planet.planets.filter(
+      planet => planet.name === planetName
+    )[0].distance;
     console.log(planetDistance);
     $(`#d${n}`).html("");
     if (planetDistance !== "") {
@@ -20,13 +35,16 @@ class Home extends React.Component {
           const radios = $(`#d${n}`).append(
             '<input type="radio" id="' +
               vehicle.name +
-              '" name="radio' +
+              '" name="' +
               n +
+              '" value="' +
+              vehicle.name +
               '" >' +
               vehicle.name +
-              " (" +
-              vehicle.total_no +
-              ") " +
+              // " (" +
+              // this.props.vehicle.vehicles.find(veh => veh.name === vehicle.name)
+              //   .total_no +
+              // ") " +
               "</input>"
           );
 
@@ -38,8 +56,14 @@ class Home extends React.Component {
     }
   };
 
-  radioClick = vehicle => {
-    console.log("hi", vehicle);
+  radioClick = (vehicleName, dropDownNumber) => {
+    const planetName = $(`#s${dropDownNumber}`).val();
+    if (planetName !== undefined) {
+      const planetDistance = this.props.planet.planets.filter(
+        planet => planet.name === planetName
+      )[0].distance;
+      this.props.updateTimeAndCount(vehicleName, planetDistance, planetName);
+    }
   };
 
   getData = () => {
@@ -58,13 +82,42 @@ class Home extends React.Component {
 
     const planetsDropdown = planets.map((planet, i) => {
       return (
-        <option key={i} value={planet.distance}>
+        <option key={i} value={planet.name}>
           {planet.name}
         </option>
       );
     });
 
     const tempArr = [1, 2, 3, 4];
+
+    // const dropdowns = tempArr.map(i => {
+    //   let id1 = `s${i}`;
+    //   let id2 = `d${i}`;
+    //   let show = "block";
+    //   const veh = this.props.vehicle.vehicles.map(vehicle => {
+    //     return (
+    //       <span>
+    //         <input type="radio" value={vehicle.name} id={vehicle.name} />
+    //         <label for={vehicle.name}>{vehicle.name}</label>
+    //       </span>
+    //     );
+    //   });
+    //   return (
+    //     <div key={i}>
+    //       <select onChange={() => this.populateVehicles(i)} id={id1}>
+    //         <option value="">select planet</option>
+    //         {planetsDropdown}
+    //       </select>
+    //       <div
+    //         styles={{ display: show }}
+    //         id={id2}
+    //         onClick={e => this.radioClick(e.target.id, e.target.name)}
+    //       >
+    //         {veh}
+    //       </div>
+    //     </div>
+    //   );
+    // });
 
     const dropdowns = tempArr.map(i => {
       let id1 = `s${i}`;
@@ -75,7 +128,10 @@ class Home extends React.Component {
             <option value="">select planet</option>
             {planetsDropdown}
           </select>
-          <div id={id2} onClick={e => this.radioClick(e.target.id)} />
+          <div
+            id={id2}
+            onClick={e => this.radioClick(e.target.id, e.target.name)}
+          />
         </div>
       );
     });
@@ -91,7 +147,7 @@ class Home extends React.Component {
           </form>
         </div>
         <div>
-          <h4>Time taken : {this.props.planet.time}</h4>
+          <h4>Time taken : {this.props.vehicle.time}</h4>
         </div>
       </div>
     );
@@ -105,5 +161,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { findHandler, getPlanets, getVehicles }
+  { findHandler, getPlanets, getVehicles, updateTimeAndCount }
 )(Home);

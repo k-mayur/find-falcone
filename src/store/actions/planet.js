@@ -14,6 +14,30 @@ export const getPlanets = () => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const findHandler = () => dispatch => {
-  console.log("hi");
+export const findHandler = (planetNames, vehicleNames) => dispatch => {
+  axios
+    .post("https://findfalcone.herokuapp.com/token", null, {
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then(res => {
+      console.log(res.data.token);
+      const data = {
+        token: res.data.token,
+        planet_names: planetNames,
+        vehicle_names: vehicleNames
+      };
+      const config = {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      };
+      axios
+        .post("https://findfalcone.herokuapp.com/find", data, config)
+        .then(res => {
+          console.log(res);
+        });
+    });
 };
