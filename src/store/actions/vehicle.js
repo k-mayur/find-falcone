@@ -1,6 +1,8 @@
 import axios from "axios";
 import { GET_VEHICLES, UPDATE_TIME } from "./actionTypes";
 
+import store from "../../Store";
+
 export const getVehicles = () => dispatch => {
   axios
     .get("https://findfalcone.herokuapp.com/vehicles")
@@ -14,9 +16,10 @@ export const getVehicles = () => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const updateTimeAndCount = (vehicleName, distance, name) => dispatch => {
+export const updateTimeAndCount = (selectedP, selectedV) => dispatch => {
+  const planets = store.getState().planet.planets;
   dispatch({
     type: UPDATE_TIME,
-    payload: { vehicleName, distance, name }
+    payload: { selectedP, selectedV, planets }
   });
 };

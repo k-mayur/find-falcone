@@ -36,18 +36,30 @@ class Home extends React.Component {
     }
   };
 
+  selectedPlanets = n => {
+    let tempA = [1, 2, 3, 4];
+    tempA = tempA.filter(m => m !== n);
+    return tempA.map(n => {
+      return $(`#s${n}`).val();
+    });
+  };
+
+  selectedVehicles = n => {
+    let tempA = [1, 2, 3, 4];
+    tempA = tempA.filter(m => m !== n);
+    return tempA.map(n => {
+      return $(`input[name=${n}]:checked`).val();
+    });
+  };
+
   populateVehicles = n => {
     const planetName = $(`#s${n}`).val();
     let planetDistance = "";
     if (planetName !== "") {
-      let tempA = [1, 2, 3, 4];
-      tempA = tempA.filter(m => m !== n);
-      const selectedPlanet = tempA
-        .map(n => {
-          return $(`#s${n}`).val();
-        })
-        .filter(planet => planet !== "");
+      const selectedPlanet = this.selectedPlanets(n);
+
       if (selectedPlanet.includes(planetName)) {
+        $(`#s${n}`).val("");
         alert("already selected this planet");
       } else {
         planetDistance = this.props.planet.planets.filter(
@@ -78,14 +90,11 @@ class Home extends React.Component {
     }
   };
 
-  radioClick = (vehicleName, dropDownNumber) => {
-    const planetName = $(`#s${dropDownNumber}`).val();
-    if (planetName !== undefined) {
-      const planetDistance = this.props.planet.planets.filter(
-        planet => planet.name === planetName
-      )[0].distance;
-      this.props.updateTimeAndCount(vehicleName, planetDistance, planetName);
-    }
+  radioClick = dropDownNumber => {
+    const selectedV = this.selectedVehicles(dropDownNumber);
+    const selectedP = this.selectedPlanets(dropDownNumber);
+    console.log(selectedP, selectedV);
+    this.props.updateTimeAndCount(selectedP, selectedV);
   };
 
   getData = () => {
@@ -131,7 +140,7 @@ class Home extends React.Component {
           <div
             className="planet-vehicles"
             id={id2}
-            onClick={e => this.radioClick(e.target.id, e.target.name)}
+            onClick={e => this.radioClick(e.target.name)}
           />
         </div>
       );

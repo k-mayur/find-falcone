@@ -3,9 +3,7 @@ import { updateObject } from "../utility";
 
 const initialState = {
   vehicles: [],
-  time: 0,
-  lastPlanet: "",
-  lastTime: 0
+  time: 0
 };
 
 export default function(state = initialState, action) {
@@ -23,25 +21,25 @@ export default function(state = initialState, action) {
 
 const updateTimeAndCount = (state, data) => {
   const prevState = Object.assign({}, state);
-  const chosenVehicle = prevState.vehicles.filter(
-    vehicle => vehicle.name === data.vehicleName
-  )[0];
-  chosenVehicle.total_no--;
-  const timeVehicle = data.distance / chosenVehicle.speed;
-  let newTime = prevState.time;
-  if (state.lastPlanet !== data.name) {
-    newTime = prevState.time + timeVehicle;
-  } else {
-    newTime = prevState.time + timeVehicle - prevState.lastTime;
-  }
-  const newVehicles = prevState.vehicles
-    .filter(vehicle => vehicle.name !== data.vehicleName)
-    .concat(chosenVehicle);
+  console.log(data);
+  const newTime = data.selectedV
+    .map((v, i) => {
+      if (v !== undefined) {
+        const dis = data.planets.filter(
+          planet => planet.name === data.selectedP[i]
+        )[0].distance;
+        const speed = prevState.vehicles.filter(veh => veh.name === v)[0].speed;
+        return dis / speed;
+      } else {
+        return null;
+      }
+    })
+    .reduce((a, b) => a + b);
+
+  console.log(newTime);
+
   return {
     ...state,
-    vehicles: newVehicles,
-    time: newTime,
-    lastPlanet: data.name,
-    lastTime: timeVehicle
+    time: newTime
   };
 };
