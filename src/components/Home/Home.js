@@ -54,10 +54,10 @@ class Home extends React.Component {
               vehicle.name +
               '" >' +
               vehicle.name +
-              // " (" +
-              // this.props.vehicle.vehicles.find(veh => veh.name === vehicle.name)
-              //   .total_no +
-              // ") " +
+              " (" +
+              this.props.vehicle.vehicles.find(veh => veh.name === vehicle.name)
+                .total_no +
+              ") " +
               "</input>"
           );
 
