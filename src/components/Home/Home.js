@@ -38,11 +38,22 @@ class Home extends React.Component {
 
   populateVehicles = n => {
     const planetName = $(`#s${n}`).val();
-    let planetDistance;
+    let planetDistance = "";
     if (planetName !== "") {
-      planetDistance = this.props.planet.planets.filter(
-        planet => planet.name === planetName
-      )[0].distance;
+      let tempA = [1, 2, 3, 4];
+      tempA = tempA.filter(m => m !== n);
+      const selectedPlanet = tempA
+        .map(n => {
+          return $(`#s${n}`).val();
+        })
+        .filter(planet => planet !== "");
+      if (selectedPlanet.includes(planetName)) {
+        alert("already selected this planet");
+      } else {
+        planetDistance = this.props.planet.planets.filter(
+          planet => planet.name === planetName
+        )[0].distance;
+      }
     }
     $(`#d${n}`).html("");
     if (planetDistance !== "") {
