@@ -1,4 +1,4 @@
-import { GET_VEHICLES, UPDATE_TIME } from "../actions/actionTypes";
+import { GET_VEHICLES, UPDATE_TIME, RESET_TIME } from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
 const initialState = {
@@ -14,6 +14,8 @@ export default function(state = initialState, action) {
       return updateObject(state, { vehicles: action.payload });
     case UPDATE_TIME:
       return updateTimeAndCount(state, action.payload);
+    case RESET_TIME:
+      return { ...state, time: 0, lastTime: 0, lastPlanet: "" };
     default:
       return state;
   }
