@@ -121,7 +121,7 @@ class Home extends React.Component {
             onChange={() => this.populateVehicles(i)}
             id={id1}
           >
-            <option value="">select planet</option>
+            <option value="">select planet {i}</option>
             {planetsDropdown}
           </select>
           <div
@@ -133,13 +133,24 @@ class Home extends React.Component {
       );
     });
 
+    const vehiclesList = this.props.vehicle.vehicles.map(vehicle => {
+      return (
+        <span>
+          {vehicle.name} - {vehicle.total_no} &nbsp;
+        </span>
+      );
+    });
+
     return (
       <div className="home">
         <div className="home-options">
           <h4 style={{ textAlign: "center" }}>
             Select planets you want to search in :
           </h4>
-
+          <div className="vlist">
+            <span className="vlist-title">Available Vehicles :</span>
+            <div className="vlist-content">{vehiclesList}</div>
+          </div>
           <form
             className="home-form"
             data-test="findForm"
