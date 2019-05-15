@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { findHandler, getPlanets } from "../../store/actions/planet";
 import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
 import $ from "jquery";
+import "./Home.css";
 
 class Home extends React.Component {
   findHandle = e => {

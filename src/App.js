@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
 import Home from "./components/Home/Home";
 import Result from "./components/Result/Result";
+import "./App.css";
 
 class App extends React.Component {
   state = {

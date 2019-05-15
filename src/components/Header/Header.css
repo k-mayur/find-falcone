@@ -1,0 +1,26 @@
+.header {
+  background-color: lightslategray;
+  border-radius: 5px;
+  padding: 5px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text h2 {
+  color: antiquewhite;
+  padding: 5px;
+}
+
+.header-btn {
+  padding: 5px;
+}
+
+.btn {
+  margin: 5px 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: bisque;
+}
