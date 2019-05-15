@@ -24,6 +24,8 @@
 .planets-wrap {
   display: flex;
 }
+.planet-wrap {
+}
 
 .planet-dropdown {
   appearance: none;

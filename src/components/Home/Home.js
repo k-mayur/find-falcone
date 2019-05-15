@@ -18,7 +18,7 @@ class Home extends React.Component {
       $("input[name=3]:checked").val() === undefined ||
       $("input[name=4]:checked").val() === undefined
     ) {
-      alert("please enter valid input");
+      alert("please enter all valid inputs");
     } else {
       const planetNames = [
         $("#s1").val(),
@@ -136,7 +136,9 @@ class Home extends React.Component {
     return (
       <div className="home">
         <div className="home-options">
-          <h4>Select planets you want to search in :</h4>
+          <h4 style={{ textAlign: "center" }}>
+            Select planets you want to search in :
+          </h4>
 
           <form
             className="home-form"
@@ -145,7 +147,11 @@ class Home extends React.Component {
           >
             <span className="planets-wrap">{dropdowns}</span>
 
-            <button className="btn" type="submit">
+            <button
+              className="btn"
+              type="submit"
+              style={{ alignSelf: "center", margin: "30px" }}
+            >
               Find
             </button>
           </form>

@@ -1,4 +1,8 @@
-import { GET_PLANETS, FIND_RESULT } from "../actions/actionTypes";
+import {
+  GET_PLANETS,
+  FIND_RESULT,
+  RESET_REDIRECT
+} from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
 const initialState = {
@@ -13,6 +17,8 @@ export default function(state = initialState, action) {
       return updateObject(state, { planets: action.payload });
     case FIND_RESULT:
       return updateResult(state, action.payload);
+    case RESET_REDIRECT:
+      return { ...state, redirect: false };
     default:
       return state;
   }

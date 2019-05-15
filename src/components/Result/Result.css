@@ -1,0 +1,11 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.result p {
+  font-size: 1.5em;
+}
+.result h3 {
+  font-size: 2em;
+}

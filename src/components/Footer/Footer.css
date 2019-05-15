@@ -1,6 +1,7 @@
 .footer {
   background-color: lightslategray;
   border-radius: 5px;
+  text-align: center;
 }
 
 .footer h4 {

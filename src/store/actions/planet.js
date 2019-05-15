@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PLANETS, FIND_RESULT } from "./actionTypes";
+import { GET_PLANETS, FIND_RESULT, RESET_REDIRECT } from "./actionTypes";
 
 export const getPlanets = () => dispatch => {
   axios
@@ -46,4 +46,10 @@ export const findHandler = (planetNames, vehicleNames) => dispatch => {
         .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
+};
+
+export const resetRedirect = () => dispatch => {
+  dispatch({
+    type: RESET_REDIRECT
+  });
 };
