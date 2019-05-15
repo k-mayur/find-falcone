@@ -44,8 +44,6 @@ class Home extends React.Component {
         planet => planet.name === planetName
       )[0].distance;
     }
-
-    console.log(planetName);
     $(`#d${n}`).html("");
     if (planetDistance !== "") {
       this.props.vehicle.vehicles.map(vehicle => {
@@ -61,7 +59,6 @@ class Home extends React.Component {
               vehicle.name +
               "</input></span>"
           );
-
           return radios;
         } else {
           return null;
@@ -84,7 +81,6 @@ class Home extends React.Component {
     this.props.getPlanets();
     this.props.getVehicles();
   };
-
   componentDidMount = () => {
     this.getData();
   };
@@ -97,9 +93,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { vehicles } = this.props.vehicle;
-    const { planets, time } = this.props.planet;
-    console.log(vehicles, planets, time);
+    const { planets } = this.props.planet;
 
     const planetsDropdown = planets.map((planet, i) => {
       return (
@@ -110,7 +104,6 @@ class Home extends React.Component {
     });
 
     const tempArr = [1, 2, 3, 4];
-
     const dropdowns = tempArr.map(i => {
       let id1 = `s${i}`;
       let id2 = `d${i}`;
@@ -133,10 +126,14 @@ class Home extends React.Component {
       );
     });
 
-    const vehiclesList = this.props.vehicle.vehicles.map(vehicle => {
+    const vehiclesList = this.props.vehicle.vehicles.map((vehicle, i) => {
       return (
-        <span>
-          {vehicle.name} - {vehicle.total_no} &nbsp;
+        <span key={i}>
+          {vehicle.name} :{" "}
+          <span style={{ color: "darkred", fontSize: "1.2em" }}>
+            {vehicle.total_no}
+          </span>{" "}
+          &nbsp;
         </span>
       );
     });
@@ -157,18 +154,20 @@ class Home extends React.Component {
             onSubmit={this.findHandle}
           >
             <span className="planets-wrap">{dropdowns}</span>
-
             <button
               className="btn"
               type="submit"
               style={{ alignSelf: "center", margin: "30px" }}
             >
-              Find
+              Find Falcone
             </button>
           </form>
         </div>
         <div className="home-time">
-          <h4>Time taken : {this.props.vehicle.time}</h4>
+          <h4>
+            Time taken :{" "}
+            <span style={{ color: "darkred" }}>{this.props.vehicle.time}</span>{" "}
+          </h4>
         </div>
       </div>
     );

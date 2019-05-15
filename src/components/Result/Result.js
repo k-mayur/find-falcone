@@ -12,7 +12,7 @@ class Result extends React.Component {
     let planet = "She could be anywhere on the remaining planet.";
     if (this.props.planet.result.status === "success") {
       msg = "Congratulations! You found Falcone. King Shan is mighty pleased.";
-      planet = `She's was hiding on ${this.props.planet.result.planet_name}.`;
+      planet = `She was hiding on ${this.props.planet.result.planet_name}.`;
     }
     return (
       <div className="result">
