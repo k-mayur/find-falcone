@@ -21,7 +21,24 @@ export default function(state = initialState, action) {
 
 const updateTimeAndCount = (state, data) => {
   const prevState = Object.assign({}, state);
-  console.log(data);
+  let objV = {};
+  data.selectedV.forEach(el => {
+    if (el !== undefined) {
+      if (objV[el]) {
+        objV[el]++;
+      } else {
+        objV[el] = 1;
+      }
+    }
+  });
+
+  const updatedVeh = data.veh.map(veh => {
+    if (objV[veh.name]) {
+      veh.total_no -= objV[veh.name];
+    }
+    return veh;
+  });
+
   const newTime = data.selectedV
     .map((v, i) => {
       if (v !== undefined) {
@@ -36,10 +53,9 @@ const updateTimeAndCount = (state, data) => {
     })
     .reduce((a, b) => a + b);
 
-  console.log(newTime);
-
   return {
     ...state,
+    vehicles: updatedVeh,
     time: newTime
   };
 };

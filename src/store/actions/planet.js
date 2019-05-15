@@ -10,7 +10,6 @@ export const getPlanets = () => dispatch => {
   axios
     .get("https://findfalcone.herokuapp.com/planets")
     .then(planets => {
-      console.log(planets.data);
       dispatch({
         type: GET_PLANETS,
         payload: planets.data
@@ -27,7 +26,6 @@ export const findHandler = (planetNames, vehicleNames) => dispatch => {
       }
     })
     .then(res => {
-      console.log(res.data.token);
       const data = {
         token: res.data.token,
         planet_names: planetNames,
@@ -42,7 +40,6 @@ export const findHandler = (planetNames, vehicleNames) => dispatch => {
       axios
         .post("https://findfalcone.herokuapp.com/find", data, config)
         .then(res => {
-          console.log(res);
           dispatch({
             type: FIND_RESULT,
             payload: res.data

@@ -91,10 +91,17 @@ class Home extends React.Component {
   };
 
   radioClick = dropDownNumber => {
-    const selectedV = this.selectedVehicles(dropDownNumber);
-    const selectedP = this.selectedPlanets(dropDownNumber);
-    console.log(selectedP, selectedV);
-    this.props.updateTimeAndCount(selectedP, selectedV);
+    const veh = $(`input[name=${dropDownNumber}]:checked`).val();
+    const availVeh = this.props.vehicle.vehicles.filter(v => v.name === veh)[0]
+      .total_no;
+    if (availVeh <= 0) {
+      $(`input[name=${dropDownNumber}]`).prop("checked", false);
+      alert("vehicle not available");
+    } else {
+      const selectedV = this.selectedVehicles(dropDownNumber);
+      const selectedP = this.selectedPlanets(dropDownNumber);
+      this.props.updateTimeAndCount(selectedP, selectedV, veh);
+    }
   };
 
   getData = () => {
