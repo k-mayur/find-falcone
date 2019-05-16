@@ -2,18 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import { findHandler, getPlanets } from "../../store/actions/planet";
 import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
-import $ from "jquery";
 import "./Home.css";
 
 class Home extends React.Component {
   state = {
-    vehicles: [],
-    planets: []
+    planet1: "",
+    planet2: "",
+    planet3: "",
+    planet4: "",
+    vehicle1: undefined,
+    vehicle2: undefined,
+    vehicle3: undefined,
+    vehicle4: undefined
   };
 
   findHandle = e => {
     e.preventDefault();
-    console.log(e.target.formData);
+    console.log(e.target.children);
     // if (
     //   $("#s1").val() === undefined ||
     //   $("#s2").val() === undefined ||
@@ -70,7 +75,7 @@ class Home extends React.Component {
     if (planetName !== "") {
       const selectedPlanet = this.selectedPlanets(n);
       if (selectedPlanet.includes(planetName)) {
-        e.target.value = "";
+        e.target.value = this.state[`planet${n}`];
         alert("already selected this planet");
       } else {
         planetDistance = this.props.planet.planets.filter(
@@ -78,7 +83,6 @@ class Home extends React.Component {
         )[0].distance;
       }
     }
-    console.log(document.getElementById(`d${n}`));
     if (planetDistance !== "") {
       this.props.vehicle.vehicles.map(vehicle => {
         if (vehicle.max_distance >= planetDistance) {
@@ -103,21 +107,36 @@ class Home extends React.Component {
         }
       });
     }
+    this.setState({ [`planet${n}`]: e.target.value });
   };
 
   radioClick = e => {
     const veh = e.target.value;
+    const n = e.target.name;
     if (veh !== undefined) {
       const availVeh = this.props.vehicle.updatedVehicles.filter(
         v => v.name === veh
       )[0].total_no;
       if (availVeh <= 0) {
+        const el = document.querySelector(`input[name = "${n}"]:checked`);
+        if (el !== null && this.state[`vehicle${n}`] !== undefined) {
+          document.getElementById(
+            `${this.state[`vehicle${n}`]}${n}`
+          ).checked = true;
+          alert("vehicle not available");
+          return;
+        } else {
+          document.getElementById(`${veh}${n}`).checked = false;
+        }
         alert("vehicle not available");
+        this.setState({ [`vehicle${n}`]: undefined });
+        return;
       } else {
-        const selectedV = this.selectedVehicles(e.target.name);
-        const selectedP = this.selectedPlanets(e.target.name);
+        const selectedV = this.selectedVehicles(n);
+        const selectedP = this.selectedPlanets(n);
         this.props.updateTimeAndCount(selectedP, selectedV);
       }
+      this.setState({ [`vehicle${n}`]: veh });
     }
   };
 
@@ -137,7 +156,7 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log(this.props.vehicle.updatedVehicles);
+    console.log(this.state);
     const { planets } = this.props.planet;
 
     const planetsDropdown = planets.map((planet, i) => {
@@ -158,6 +177,7 @@ class Home extends React.Component {
             className="planet-dropdown"
             onChange={e => this.populateVehicles(i, e)}
             id={id1}
+            value={this.state[`planet${i}`]}
           >
             <option value="">select planet {i}</option>
             {planetsDropdown}
