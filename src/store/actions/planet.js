@@ -3,7 +3,8 @@ import {
   GET_PLANETS,
   FIND_RESULT,
   RESET_REDIRECT,
-  RESET_TIME
+  RESET_TIME,
+  RESET
 } from "./actionTypes";
 
 export const getPlanets = () => dispatch => {
@@ -56,5 +57,11 @@ export const resetRedirect = () => dispatch => {
   });
   dispatch({
     type: RESET_TIME
+  });
+};
+
+export const resetHandler = () => dispatch => {
+  dispatch({
+    type: RESET
   });
 };

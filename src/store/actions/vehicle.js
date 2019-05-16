@@ -15,18 +15,10 @@ export const getVehicles = () => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const updateTimeAndCount = (selectedP, selectedV, veh) => dispatch => {
-  axios
-    .get("https://findfalcone.herokuapp.com/vehicles")
-    .then(vehicles => {
-      const veh = vehicles.data;
-
-      const planets = store.getState().planet.planets;
-
-      dispatch({
-        type: UPDATE_TIME,
-        payload: { selectedP, selectedV, veh, planets }
-      });
-    })
-    .catch(err => console.log(err));
+export const updateTimeAndCount = (selectedP, selectedV) => dispatch => {
+  const planets = store.getState().planet.planets;
+  dispatch({
+    type: UPDATE_TIME,
+    payload: { selectedP, selectedV, planets }
+  });
 };

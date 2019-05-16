@@ -1,7 +1,8 @@
 import {
   GET_PLANETS,
   FIND_RESULT,
-  RESET_REDIRECT
+  RESET_REDIRECT,
+  RESET
 } from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
@@ -19,6 +20,8 @@ export default function(state = initialState, action) {
       return updateResult(state, action.payload);
     case RESET_REDIRECT:
       return { ...state, redirect: false };
+    case RESET:
+      return { ...state, result: {}, redirect: false };
     default:
       return state;
   }
