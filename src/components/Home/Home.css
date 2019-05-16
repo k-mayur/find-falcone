@@ -76,3 +76,9 @@
   color: #202020;
   padding: 10px;
 }
+
+.pos-abs {
+  position: absolute;
+  top: 25px;
+  right: 130px;
+}

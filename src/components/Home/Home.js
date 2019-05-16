@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { findHandler, getPlanets } from "../../store/actions/planet";
+import {
+  findHandler,
+  getPlanets,
+  resetHandler
+} from "../../store/actions/planet";
 import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
 import "./Home.css";
 
@@ -14,6 +18,15 @@ class Home extends React.Component {
     vehicle2: undefined,
     vehicle3: undefined,
     vehicle4: undefined
+  };
+
+  resetHandle = () => {
+    let tempA = [1, 2, 3, 4];
+    tempA.forEach(n => {
+      document.getElementById(`d${n}`).innerHTML = "";
+      this.setState({ [`planet${n}`]: "", [`vehicle${n}`]: undefined });
+    });
+    this.props.resetHandler();
   };
 
   findHandle = e => {
@@ -209,6 +222,7 @@ class Home extends React.Component {
             onSubmit={this.findHandle}
           >
             <span className="planets-wrap">{dropdowns}</span>
+
             <button
               className="btn"
               type="submit"
@@ -217,6 +231,13 @@ class Home extends React.Component {
               Find Falcone
             </button>
           </form>
+          <button
+            data-test="resetBtn"
+            className="btn pos-abs"
+            onClick={this.resetHandle}
+          >
+            Reset
+          </button>
         </div>
         <div className="home-time">
           <h4>
@@ -236,5 +257,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { findHandler, getPlanets, getVehicles, updateTimeAndCount }
+  { findHandler, getPlanets, getVehicles, updateTimeAndCount, resetHandler }
 )(Home);
