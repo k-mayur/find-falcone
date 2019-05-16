@@ -18,33 +18,21 @@ class Home extends React.Component {
 
   findHandle = e => {
     e.preventDefault();
-    console.log(e.target.children);
-    // if (
-    //   $("#s1").val() === undefined ||
-    //   $("#s2").val() === undefined ||
-    //   $("#s3").val() === undefined ||
-    //   $("#s4").val() === undefined ||
-    //   $("input[name=1]:checked").val() === undefined ||
-    //   $("input[name=2]:checked").val() === undefined ||
-    //   $("input[name=3]:checked").val() === undefined ||
-    //   $("input[name=4]:checked").val() === undefined
-    // ) {
-    //   alert("please enter all valid inputs");
-    // } else {
-    //   const planetNames = [
-    //     $("#s1").val(),
-    //     $("#s2").val(),
-    //     $("#s3").val(),
-    //     $("#s4").val()
-    //   ];
-    //   const vehicleNames = [
-    //     $("input[name=1]:checked").val(),
-    //     $("input[name=2]:checked").val(),
-    //     $("input[name=3]:checked").val(),
-    //     $("input[name=4]:checked").val()
-    //   ];
-    //   this.props.findHandler(planetNames, vehicleNames);
-    // }
+    if (
+      Object.values(this.state).includes("") ||
+      Object.values(this.state).includes(undefined)
+    ) {
+      alert("please enter all valid inputs");
+    } else {
+      const tempA = [1, 2, 3, 4];
+      const planetNames = [];
+      const vehicleNames = [];
+      tempA.forEach(n => {
+        planetNames.push(this.state[`planet${n}`]);
+        vehicleNames.push(this.state[`vehicle${n}`]);
+      });
+      this.props.findHandler(planetNames, vehicleNames);
+    }
   };
 
   selectedPlanets = n => {
