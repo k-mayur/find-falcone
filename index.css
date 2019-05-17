@@ -14,3 +14,12 @@
   width: 100%;
   object-fit: cover;
 }
+
+@media only screen and (max-width: 800px) {
+  .bgVideo {
+    display: none;
+  }
+  body {
+    background-image: linear-gradient(to top, darkgray, white);
+  }
+}
