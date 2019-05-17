@@ -83,6 +83,7 @@ class Home extends React.Component {
     let planetDistance = "";
     if (planetName !== "") {
       const selectedPlanet = this.selectedPlanets(n);
+      console.log(selectedPlanet);
       if (selectedPlanet.includes(planetName)) {
         e.target.value = this.state[`planet${n}`];
         swal(
@@ -91,6 +92,7 @@ class Home extends React.Component {
             <p>Please select another planet. </p>
           </div>
         );
+        return;
       } else {
         planetDistance = this.props.planet.planets.filter(
           planet => planet.name === planetName
@@ -98,6 +100,7 @@ class Home extends React.Component {
       }
     }
     if (planetDistance !== "") {
+      document.getElementById(`d${n}`).innerHTML = "";
       this.props.vehicle.vehicles.map(vehicle => {
         if (vehicle.max_distance >= planetDistance) {
           const radios = (document.getElementById(`d${n}`).innerHTML +=
@@ -121,7 +124,11 @@ class Home extends React.Component {
         }
       });
     }
+    const selectedV = this.selectedVehicles(n);
+    const selectedP = this.selectedPlanets(n);
+    this.props.updateTimeAndCount(selectedP, selectedV);
     this.setState({ [`planet${n}`]: e.target.value });
+    this.setState({ [`vehicle${n}`]: undefined });
   };
 
   radioClick = e => {
