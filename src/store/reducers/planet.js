@@ -2,14 +2,16 @@ import {
   GET_PLANETS,
   FIND_RESULT,
   RESET_REDIRECT,
-  RESET
+  RESET,
+  LOADING
 } from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
 const initialState = {
   planets: [],
   result: {},
-  redirect: false
+  redirect: false,
+  loding: false
 };
 
 export default function(state = initialState, action) {
@@ -22,6 +24,8 @@ export default function(state = initialState, action) {
       return { ...state, redirect: false };
     case RESET:
       return { ...state, result: {}, redirect: false };
+    case LOADING:
+      return { ...state, loading: true };
     default:
       return state;
   }
@@ -31,6 +35,7 @@ const updateResult = (state, data) => {
   return {
     ...state,
     result: data,
-    redirect: true
+    redirect: true,
+    loading: false
   };
 };

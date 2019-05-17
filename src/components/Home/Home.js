@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import {
   findHandler,
   getPlanets,
-  resetHandler
+  resetHandler,
+  loadingOn
 } from "../../store/actions/planet";
 import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
 import "./Home.css";
@@ -44,6 +45,7 @@ class Home extends React.Component {
         planetNames.push(this.state[`planet${n}`]);
         vehicleNames.push(this.state[`vehicle${n}`]);
       });
+      this.props.loadingOn();
       this.props.findHandler(planetNames, vehicleNames);
     }
   };
@@ -146,6 +148,7 @@ class Home extends React.Component {
     this.props.getVehicles();
   };
   componentDidMount = () => {
+    this.props.loadingOn();
     this.getData();
   };
 
@@ -158,95 +161,104 @@ class Home extends React.Component {
 
   render() {
     console.log(this.state);
-    const { planets } = this.props.planet;
+    const { planets, loading } = this.props.planet;
 
-    const planetsDropdown = planets.map((planet, i) => {
+    if (loading) {
       return (
-        <option key={i} value={planet.name}>
-          {planet.name}
-        </option>
-      );
-    });
-
-    const tempArr = [1, 2, 3, 4];
-    const dropdowns = tempArr.map(i => {
-      let id1 = `s${i}`;
-      let id2 = `d${i}`;
-      return (
-        <div key={i} className="planet-wrap">
-          <select
-            className="planet-dropdown"
-            onChange={e => this.populateVehicles(i, e)}
-            id={id1}
-            value={this.state[`planet${i}`]}
-          >
-            <option value="">select planet {i}</option>
-            {planetsDropdown}
-          </select>
-          <div
-            className="planet-vehicles"
-            id={id2}
-            onClick={e => this.radioClick(e)}
-          />
+        <div>
+          <div className="loader">Loading...</div>
         </div>
       );
-    });
-
-    const vehiclesList = this.props.vehicle.updatedVehicles.map(
-      (vehicle, i) => {
+    } else {
+      const planetsDropdown = planets.map((planet, i) => {
         return (
-          <span key={i}>
-            {vehicle.name} :{" "}
-            <span style={{ color: "darkred", fontSize: "1.2em" }}>
-              {vehicle.total_no}
-            </span>{" "}
-            &nbsp;
-          </span>
+          <option key={i} value={planet.name}>
+            {planet.name}
+          </option>
         );
-      }
-    );
+      });
 
-    return (
-      <div className="home">
-        <div className="home-options">
-          <h4 style={{ textAlign: "center" }}>
-            Select planets you want to search in :
-          </h4>
-          <div className="vlist">
-            <span className="vlist-title">Available Vehicles :</span>
-            <div className="vlist-content">{vehiclesList}</div>
-          </div>
-          <form
-            className="home-form"
-            data-test="findForm"
-            onSubmit={this.findHandle}
-          >
-            <span className="planets-wrap">{dropdowns}</span>
-
-            <button
-              className="btn"
-              type="submit"
-              style={{ alignSelf: "center", margin: "30px" }}
+      const tempArr = [1, 2, 3, 4];
+      const dropdowns = tempArr.map(i => {
+        let id1 = `s${i}`;
+        let id2 = `d${i}`;
+        return (
+          <div key={i} className="planet-wrap">
+            <select
+              className="planet-dropdown"
+              onChange={e => this.populateVehicles(i, e)}
+              id={id1}
+              value={this.state[`planet${i}`]}
             >
-              Find Falcone
+              <option value="">select planet {i}</option>
+              {planetsDropdown}
+            </select>
+            <div
+              className="planet-vehicles"
+              id={id2}
+              onClick={e => this.radioClick(e)}
+            />
+          </div>
+        );
+      });
+
+      const vehiclesList = this.props.vehicle.updatedVehicles.map(
+        (vehicle, i) => {
+          return (
+            <span key={i}>
+              {vehicle.name} :{" "}
+              <span style={{ color: "darkred", fontSize: "1.2em" }}>
+                {vehicle.total_no}
+              </span>{" "}
+              &nbsp;
+            </span>
+          );
+        }
+      );
+      return (
+        <div className="home">
+          <div className="home-options">
+            <h4 style={{ textAlign: "center" }}>
+              Select planets you want to search in :
+            </h4>
+            <div className="vlist">
+              <span className="vlist-title">Available Vehicles :</span>
+              <div className="vlist-content">{vehiclesList}</div>
+            </div>
+            <form
+              className="home-form"
+              data-test="findForm"
+              onSubmit={this.findHandle}
+            >
+              <span className="planets-wrap">{dropdowns}</span>
+
+              <button
+                className="btn"
+                type="submit"
+                style={{ alignSelf: "center", margin: "30px" }}
+              >
+                Find Falcone
+              </button>
+            </form>
+            <button
+              data-test="resetBtn"
+              className="btn pos-abs"
+              onClick={this.resetHandle}
+            >
+              Reset
             </button>
-          </form>
-          <button
-            data-test="resetBtn"
-            className="btn pos-abs"
-            onClick={this.resetHandle}
-          >
-            Reset
-          </button>
+          </div>
+          <div className="home-time">
+            <h4>
+              Time taken :{" "}
+              <span style={{ color: "darkred" }}>
+                {this.props.vehicle.time}
+              </span>{" "}
+            </h4>
+          </div>
         </div>
-        <div className="home-time">
-          <h4>
-            Time taken :{" "}
-            <span style={{ color: "darkred" }}>{this.props.vehicle.time}</span>{" "}
-          </h4>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
@@ -257,5 +269,12 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { findHandler, getPlanets, getVehicles, updateTimeAndCount, resetHandler }
+  {
+    findHandler,
+    getPlanets,
+    getVehicles,
+    updateTimeAndCount,
+    resetHandler,
+    loadingOn
+  }
 )(Home);

@@ -5,3 +5,4 @@ export const FIND_RESULT = "FIND_RESULT";
 export const RESET_REDIRECT = "RESET_REDIRECT";
 export const RESET_TIME = "RESET_TIME";
 export const RESET = "RESET";
+export const LOADING = "LOADING";
