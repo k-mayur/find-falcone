@@ -19,12 +19,12 @@ class Home extends React.Component {
     vehicle1: undefined,
     vehicle2: undefined,
     vehicle3: undefined,
-    vehicle4: undefined
+    vehicle4: undefined,
+    tempArr: [1, 2, 3, 4]
   };
 
   resetHandle = () => {
-    let tempA = [1, 2, 3, 4];
-    tempA.forEach(n => {
+    this.state.tempArr.forEach(n => {
       document.getElementById(`d${n}`).innerHTML = "";
       this.setState({ [`planet${n}`]: "", [`vehicle${n}`]: undefined });
     });
@@ -44,10 +44,9 @@ class Home extends React.Component {
         </div>
       );
     } else {
-      const tempA = [1, 2, 3, 4];
       const planetNames = [];
       const vehicleNames = [];
-      tempA.forEach(n => {
+      this.state.tempArr.forEach(n => {
         planetNames.push(this.state[`planet${n}`]);
         vehicleNames.push(this.state[`vehicle${n}`]);
       });
@@ -57,8 +56,7 @@ class Home extends React.Component {
   };
 
   selectedPlanets = n => {
-    let tempA = [1, 2, 3, 4];
-    tempA = tempA.filter(m => m !== n);
+    const tempA = this.state.tempArr.filter(m => m !== n);
     return tempA.map(n => {
       let e = document.getElementById(`s${n}`);
       return e.options[e.selectedIndex].value;
@@ -66,8 +64,7 @@ class Home extends React.Component {
   };
 
   selectedVehicles = n => {
-    let tempA = [1, 2, 3, 4];
-    tempA = tempA.filter(m => m !== n);
+    const tempA = this.state.tempArr.filter(m => m !== n);
     return tempA.map(n => {
       const el = document.querySelector(`input[name = "${n}"]:checked`);
       if (el !== null) {
@@ -207,8 +204,7 @@ class Home extends React.Component {
         );
       });
 
-      const tempArr = [1, 2, 3, 4];
-      const dropdowns = tempArr.map(i => {
+      const dropdowns = this.state.tempArr.map(i => {
         let id1 = `s${i}`;
         let id2 = `d${i}`;
         return (
