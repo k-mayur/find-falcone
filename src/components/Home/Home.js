@@ -8,6 +8,7 @@ import {
 } from "../../store/actions/planet";
 import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
 import "./Home.css";
+import swal from "@sweetalert/with-react";
 
 class Home extends React.Component {
   state = {
@@ -36,7 +37,12 @@ class Home extends React.Component {
       Object.values(this.state).includes("") ||
       Object.values(this.state).includes(undefined)
     ) {
-      alert("please enter all valid inputs");
+      swal(
+        <div>
+          <h1>Inputs Missing!</h1>
+          <p>Please enter all valid inputs.</p>
+        </div>
+      );
     } else {
       const tempA = [1, 2, 3, 4];
       const planetNames = [];
@@ -79,7 +85,12 @@ class Home extends React.Component {
       const selectedPlanet = this.selectedPlanets(n);
       if (selectedPlanet.includes(planetName)) {
         e.target.value = this.state[`planet${n}`];
-        alert("already selected this planet");
+        swal(
+          <div>
+            <h1>Planet Already Selected!</h1>
+            <p>Please select another planet. </p>
+          </div>
+        );
       } else {
         planetDistance = this.props.planet.planets.filter(
           planet => planet.name === planetName
@@ -126,12 +137,22 @@ class Home extends React.Component {
           document.getElementById(
             `${this.state[`vehicle${n}`]}${n}`
           ).checked = true;
-          alert("vehicle not available");
+          swal(
+            <div>
+              <h1>Vehicle Not Available! </h1>
+              <p>Please select another vehicle.</p>
+            </div>
+          );
           return;
         } else {
           document.getElementById(`${veh}${n}`).checked = false;
         }
-        alert("vehicle not available");
+        swal(
+          <div>
+            <h1>Vehicle Not Available! </h1>
+            <p>Please select another vehicle.</p>
+          </div>
+        );
         this.setState({ [`vehicle${n}`]: undefined });
         return;
       } else {
@@ -160,7 +181,6 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const { planets, loading } = this.props.planet;
 
     if (loading) {
@@ -196,7 +216,7 @@ class Home extends React.Component {
             <div
               className="planet-vehicles"
               id={id2}
-              onClick={e => this.radioClick(e)}
+              onClick={this.radioClick}
             />
           </div>
         );
