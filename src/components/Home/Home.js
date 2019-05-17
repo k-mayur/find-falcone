@@ -98,6 +98,8 @@ class Home extends React.Component {
           planet => planet.name === planetName
         )[0].distance;
       }
+    } else {
+      document.getElementById(`d${n}`).innerHTML = "";
     }
     if (planetDistance !== "") {
       document.getElementById(`d${n}`).innerHTML = "";
