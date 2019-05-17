@@ -1,5 +1,6 @@
 {
   "name": "find-falcone",
+  "homepage": "https://k-mayur.github.io/find-falcone",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,7 +18,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,7 +38,8 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^3.2.0"
+    "cypress": "^3.2.0",
+    "gh-pages": "^2.0.1"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>test/setup.js"
