@@ -6,6 +6,12 @@
   justify-content: space-between;
   align-items: center;
 }
+@media only screen and (max-width: 450px) {
+  .header {
+    font-size: 0.5em;
+    padding: 5px 5px;
+  }
+}
 
 .header-text h2 {
   color: antiquewhite;

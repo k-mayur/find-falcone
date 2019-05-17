@@ -95,6 +95,20 @@
   top: 25px;
   right: 130px;
 }
+@media only screen and (max-width: 450px) {
+  .pos-abs {
+    font-size: 0.5em;
+    top: 18px;
+    right: 70px;
+  }
+  .home-options h4 {
+    font-size: 1.2em;
+    margin-bottom: 0;
+  }
+  .vlist-title {
+    font-size: 1em;
+  }
+}
 
 .loader {
   margin: 200px auto;
