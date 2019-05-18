@@ -5,7 +5,7 @@ import {
   RESET,
   LOADING
 } from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import { updateState } from "../helper";
 
 const initialState = {
   planets: [],
@@ -17,7 +17,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PLANETS:
-      return updateObject(state, { planets: action.payload });
+      return updateState(state, { planets: action.payload });
     case FIND_RESULT:
       return updateResult(state, action.payload);
     case RESET_REDIRECT:

@@ -4,18 +4,21 @@ import {
   RESET_TIME,
   RESET
 } from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import { updateState } from "../helper";
 
 const initialState = {
   vehicles: [],
   updatedVehicles: [],
-  time: 0
+  selectedPlanets: [],
+  selectedVehicles: [],
+  time: 0,
+  numVehiclesAllowed: 4
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_VEHICLES:
-      return updateObject(state, {
+      return updateState(state, {
         vehicles: action.payload,
         updatedVehicles: action.payload
       });

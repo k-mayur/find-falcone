@@ -7,6 +7,7 @@ import {
   loadingOn
 } from "../../store/actions/planet";
 import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
+import Dropdown from "../Dropdown/Dropdown";
 import "./Home.css";
 import swal from "@sweetalert/with-react";
 
@@ -242,6 +243,9 @@ class Home extends React.Component {
       );
       return (
         <div className="home">
+          <div>
+            <Dropdown />
+          </div>
           <div className="home-options">
             <h4 style={{ textAlign: "center" }}>
               Select planets you want to search in :
