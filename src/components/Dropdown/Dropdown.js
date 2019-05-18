@@ -25,11 +25,11 @@ class Dropdown extends React.Component {
             {planetsDropdown}
           </select>
           <div className="planet-vehicles" onClick={this.radioClick} />
-          <Radios />
+          <Radios planetNumber={i} />
         </div>
       );
     }
-    return <div>{dropdowns}</div>;
+    return <div className="planets-wrap">{dropdowns}</div>;
   }
 }
 

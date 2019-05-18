@@ -5,17 +5,28 @@ class Radios extends React.Component {
   render() {
     const { updatedVehicles } = this.props.vehicle;
 
-    let radios = updatedVehicles.map((vehicle, n) => {
-      const num = n + 1;
+    let radios = updatedVehicles.map(vehicle => {
+      const { planetNumber } = this.props;
       const name = vehicle.name;
       return (
         <span>
-          <input type="radio" name={name} value={name} />
-          <label for={name + num}>{name + " (" + vehicle.total_no + ")"}</label>
+          <input
+            type="radio"
+            name={planetNumber}
+            value={name}
+            id={name + planetNumber}
+          />
+          <label for={name + planetNumber}>
+            {name + " (" + vehicle.total_no + ")"}
+          </label>
         </span>
       );
     });
-    return <div>{radios}</div>;
+    return (
+      <div className="planet-vehicles" onClick={this.radioClick}>
+        {radios}
+      </div>
+    );
   }
 }
 
