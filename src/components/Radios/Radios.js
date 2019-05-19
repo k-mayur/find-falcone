@@ -15,6 +15,7 @@ class Radios extends React.Component {
             name={planetNumber}
             value={name}
             id={name + planetNumber}
+            onClick={this.radioClick}
           />
           <label for={name + planetNumber}>
             {name + " (" + vehicle.total_no + ")"}

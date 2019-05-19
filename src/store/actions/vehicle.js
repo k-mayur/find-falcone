@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GET_VEHICLES, UPDATE_TIME } from "./actionTypes";
 
-import store from "../../Store";
+import store from "../Store";
 
 export const getVehicles = () => dispatch => {
   axios

@@ -19,12 +19,12 @@ class Dropdown extends React.Component {
           <select
             className="planet-dropdown"
             onChange={e => this.populateVehicles(i, e)}
-            // value={this.state[`planet${i}`]}
+            // value={}
           >
-            <option value="">select planet {i}</option>
+            <option>select planet {i}</option>
             {planetsDropdown}
           </select>
-          <div className="planet-vehicles" onClick={this.radioClick} />
+          <div className="planet-vehicles" />
           <Radios planetNumber={i} />
         </div>
       );

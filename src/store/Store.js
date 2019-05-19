@@ -1,6 +1,6 @@
 import thunk from "redux-thunk";
-import planetReducer from "./store/reducers/planet";
-import vehicleReducer from "./store/reducers/vehicle";
+import planetReducer from "./reducers/planet";
+import vehicleReducer from "./reducers/vehicle";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
 const rootReducer = combineReducers({

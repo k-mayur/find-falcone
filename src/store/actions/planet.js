@@ -67,7 +67,7 @@ export const resetHandler = () => dispatch => {
   });
 };
 
-export const loadingOn = () => dispatch => {
+export const loading = () => dispatch => {
   dispatch({
     type: LOADING
   });
