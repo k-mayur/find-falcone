@@ -2,9 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 import Radios from "../Radios/Radios";
 import { updateSelectedPlanets } from "../../store/actions/vehicle";
+import swal from "@sweetalert/with-react";
 
 class Dropdown extends React.Component {
   updateSelectedPlanets = (planetNumber, event) => {
+    if (event.target.value !== "") {
+      if (
+        Object.values(this.props.vehicle.selectedPlanets).includes(
+          event.target.value
+        )
+      ) {
+        return swal("select another planet");
+      }
+    }
+
     this.props.updateSelectedPlanets(event.target.value, planetNumber);
   };
 

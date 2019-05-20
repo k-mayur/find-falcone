@@ -63,7 +63,12 @@ class Home extends React.Component {
   render() {
     const { selectedPlanets, selectedVehicles, time } = this.props.vehicle;
 
-    console.log(selectedPlanets, selectedVehicles, time);
+    console.log(
+      selectedPlanets,
+      selectedVehicles,
+      time,
+      this.props.vehicle.vehicles
+    );
     const { loading } = this.props.planet;
     if (loading) {
       return (
