@@ -7,17 +7,15 @@ import {
   RESET,
   LOADING
 } from "./actionTypes";
+import httpService from "../../services/httpService";
 
 export const getPlanets = () => dispatch => {
-  axios
-    .get("https://findfalcone.herokuapp.com/planets")
-    .then(planets => {
-      dispatch({
-        type: GET_PLANETS,
-        payload: planets.data
-      });
-    })
-    .catch(err => console.log(err));
+  httpService.get("/planets").then(planets => {
+    dispatch({
+      type: GET_PLANETS,
+      payload: planets.data
+    });
+  });
 };
 
 export const findHandler = (planetNames, vehicleNames) => dispatch => {
