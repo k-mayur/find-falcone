@@ -11,6 +11,11 @@ const httpService = {
     return axios
       .get(globalUrl + api, null, header)
       .catch(err => console.log(err));
+  },
+  post: (api, data) => {
+    return axios
+      .get(globalUrl + api, data, header)
+      .catch(err => console.log(err));
   }
 };
 

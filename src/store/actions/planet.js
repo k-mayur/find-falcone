@@ -19,35 +19,19 @@ export const getPlanets = () => dispatch => {
 };
 
 export const findHandler = (planetNames, vehicleNames) => dispatch => {
-  axios
-    .post("https://findfalcone.herokuapp.com/token", null, {
-      headers: {
-        Accept: "application/json"
-      }
-    })
-    .then(res => {
-      const data = {
-        token: res.data.token,
-        planet_names: planetNames,
-        vehicle_names: vehicleNames
-      };
-      const config = {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      };
-      axios
-        .post("https://findfalcone.herokuapp.com/find", data, config)
-        .then(res => {
-          dispatch({
-            type: FIND_RESULT,
-            payload: res.data
-          });
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+  httpService.get("/token").then(res => {
+    const data = {
+      token: res.data.token,
+      planet_names: planetNames,
+      vehicle_names: vehicleNames
+    };
+    httpService.post("/find", data).then(res => {
+      dispatch({
+        type: FIND_RESULT,
+        payload: res.data
+      });
+    });
+  });
 };
 
 export const resetRedirect = () => dispatch => {
