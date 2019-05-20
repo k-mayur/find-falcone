@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   GET_PLANETS,
   FIND_RESULT,
@@ -19,16 +18,18 @@ export const getPlanets = () => dispatch => {
 };
 
 export const findHandler = (planetNames, vehicleNames) => dispatch => {
-  httpService.get("/token").then(res => {
+  httpService.post("/token", null).then(response => {
+    console.log(response.data.token);
     const data = {
-      token: res.data.token,
+      token: response.data.token,
       planet_names: planetNames,
       vehicle_names: vehicleNames
     };
-    httpService.post("/find", data).then(res => {
+    httpService.post("/find", data).then(response => {
+      console.log(response);
       dispatch({
         type: FIND_RESULT,
-        payload: res.data
+        payload: response.data
       });
     });
   });

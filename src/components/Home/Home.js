@@ -6,10 +6,10 @@ import {
   resetHandler,
   loading
 } from "../../store/actions/planet";
-import { getVehicles, updateTimeAndCount } from "../../store/actions/vehicle";
+import { getVehicles } from "../../store/actions/vehicle";
 import Dropdown from "../Dropdown/Dropdown";
 import "./Home.css";
-//import swal from "@sweetalert/with-react";
+import swal from "@sweetalert/with-react";
 
 class Home extends React.Component {
   resetHandle = () => {
@@ -18,8 +18,30 @@ class Home extends React.Component {
 
   findHandle = e => {
     e.preventDefault();
-    this.props.loadingOn();
-    this.props.findHandler();
+    const { selectedPlanets, selectedVehicles } = this.props.vehicle;
+    for (
+      let planetNumber = 1;
+      planetNumber <= this.props.vehicle.numPlanetsAllowed;
+      planetNumber++
+    ) {
+      if (
+        !selectedPlanets[planetNumber - 1] ||
+        selectedPlanets[planetNumber - 1] === ""
+      ) {
+        return swal("select all four planets");
+      }
+      if (
+        !selectedVehicles[planetNumber - 1] ||
+        selectedVehicles[planetNumber - 1] === ""
+      ) {
+        return swal("select all four vehicles");
+      }
+    }
+
+    const planets = Object.values(selectedPlanets);
+    const vehicles = Object.values(selectedVehicles);
+    this.props.loading();
+    this.props.findHandler(planets, vehicles);
   };
 
   getData = () => {
@@ -39,6 +61,9 @@ class Home extends React.Component {
   };
 
   render() {
+    const { selectedPlanets, selectedVehicles, time } = this.props.vehicle;
+
+    console.log(selectedPlanets, selectedVehicles, time);
     const { loading } = this.props.planet;
     if (loading) {
       return (
@@ -100,7 +125,6 @@ export default connect(
     findHandler,
     getPlanets,
     getVehicles,
-    updateTimeAndCount,
     resetHandler,
     loading
   }

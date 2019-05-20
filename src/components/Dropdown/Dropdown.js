@@ -1,31 +1,44 @@
 import React from "react";
 import { connect } from "react-redux";
 import Radios from "../Radios/Radios";
+import { updateSelectedPlanets } from "../../store/actions/vehicle";
 
 class Dropdown extends React.Component {
+  updateSelectedPlanets = (planetNumber, event) => {
+    this.props.updateSelectedPlanets(event.target.value, planetNumber);
+  };
+
   render() {
     const { planets } = this.props.planet;
-    const planetsDropdown = planets.map((planet, i) => {
+    const planetsDropdown = planets.map((planet, index) => {
       return (
-        <option key={i} value={planet.name}>
+        <option key={index} value={planet.name}>
           {planet.name}
         </option>
       );
     });
     let dropdowns = [];
-    for (let i = 1; i <= this.props.vehicle.numVehiclesAllowed; i++) {
+    for (
+      let planetNumber = 1;
+      planetNumber <= this.props.vehicle.numPlanetsAllowed;
+      planetNumber++
+    ) {
       dropdowns.push(
-        <div key={i} className="planet-wrap">
+        <div key={planetNumber} className="planet-wrap">
           <select
             className="planet-dropdown"
-            onChange={e => this.populateVehicles(i, e)}
-            // value={}
+            onChange={e => this.updateSelectedPlanets(planetNumber, e)}
+            value={
+              this.props.vehicle.selectedPlanets[planetNumber - 1]
+                ? this.props.vehicle.selectedPlanets[planetNumber - 1]
+                : ""
+            }
           >
-            <option>select planet {i}</option>
+            <option value="">select planet {planetNumber}</option>
             {planetsDropdown}
           </select>
-          <div className="planet-vehicles" />
-          <Radios planetNumber={i} />
+          <div />
+          <Radios planetNumber={planetNumber} />
         </div>
       );
     }
@@ -40,5 +53,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { updateSelectedPlanets }
 )(Dropdown);

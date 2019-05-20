@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const globalUrl = "https://findfalcone.herokuapp.com";
-const header = {
+const headers = {
   Accept: "application/json",
   "Content-Type": "application/json"
 };
@@ -9,12 +9,12 @@ const header = {
 const httpService = {
   get: api => {
     return axios
-      .get(globalUrl + api, null, header)
+      .get(globalUrl + api, null, { headers })
       .catch(err => console.log(err));
   },
   post: (api, data) => {
     return axios
-      .get(globalUrl + api, data, header)
+      .post(globalUrl + api, data, { headers })
       .catch(err => console.log(err));
   }
 };
