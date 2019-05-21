@@ -1,0 +1,6 @@
+After submitting error showing. Please check once.
+Remove console logs.
+Dont fetch tocken every time. Store in state and get it from state. Load when pageloaded.
+What if we want to add extra item in payload. getPlanets();
+What reset is doing.
+rename the copuy variable
