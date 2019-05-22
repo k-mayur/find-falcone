@@ -6,21 +6,20 @@ import swal from "@sweetalert/with-react";
 
 class Dropdown extends React.Component {
   updateSelectedPlanets = (planetNumber, event) => {
-    if (event.target.value !== "") {
-      if (
-        Object.values(this.props.vehicle.selectedPlanets).includes(
-          event.target.value
-        )
-      ) {
+    const planetName = event.target.value;
+    const { selectedPlanets } = this.props.vehicle;
+    if (planetName !== "") {
+      if (Object.values(selectedPlanets).includes(planetName)) {
         return swal("select another planet");
       }
     }
 
-    this.props.updateSelectedPlanets(event.target.value, planetNumber);
+    this.props.updateSelectedPlanets(planetName, planetNumber);
   };
 
   render() {
     const { planets } = this.props.planet;
+    const { selectedPlanets } = this.props.vehicle;
     const planetsDropdown = planets.map((planet, index) => {
       return (
         <option key={index} value={planet.name}>
@@ -29,21 +28,14 @@ class Dropdown extends React.Component {
       );
     });
     let dropdowns = [];
-    for (
-      let planetNumber = 1;
-      planetNumber <= this.props.vehicle.numPlanetsAllowed;
-      planetNumber++
-    ) {
+    for (let i = 0; i < this.props.vehicle.numPlanetsAllowed; i++) {
+      const planetNumber = i + 1;
       dropdowns.push(
         <div key={planetNumber} className="planet-wrap">
           <select
             className="planet-dropdown"
             onChange={e => this.updateSelectedPlanets(planetNumber, e)}
-            value={
-              this.props.vehicle.selectedPlanets[planetNumber - 1]
-                ? this.props.vehicle.selectedPlanets[planetNumber - 1]
-                : ""
-            }
+            value={selectedPlanets[i] ? selectedPlanets[i] : ""}
           >
             <option value="">select planet {planetNumber}</option>
             {planetsDropdown}

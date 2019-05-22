@@ -5,25 +5,23 @@ import swal from "sweetalert";
 
 class Radios extends React.Component {
   updateSelectedVehicles = (event, planetNumber) => {
+    const vehicleName = event.target.value;
+    const { planet, vehicle } = this.props;
     if (
-      this.props.vehicle.updatedVehicles.filter(
-        veh => veh.name === event.target.value
-      )[0].total_no <= 0
+      vehicle.updatedVehicles.find(veh => veh.name === vehicleName).total_no <=
+      0
     ) {
       event.preventDefault();
       return swal("vehicle not available");
     } else if (
-      this.props.planet.planets.filter(
-        pl => pl.name === this.props.vehicle.selectedPlanets[planetNumber - 1]
-      )[0].distance >
-      this.props.vehicle.vehicles.filter(
-        veh => veh.name === event.target.value
-      )[0].max_distance
+      planet.planets.find(
+        pl => pl.name === vehicle.selectedPlanets[planetNumber - 1]
+      ).distance >
+      vehicle.vehicles.find(veh => veh.name === vehicleName).max_distance
     ) {
       event.preventDefault();
       return swal("vehicle not reachable");
     } else {
-      const vehicleName = event.target.value;
       if (vehicleName !== undefined) {
         this.props.updateSelectedVehicles(vehicleName, planetNumber);
       }
@@ -45,7 +43,6 @@ class Radios extends React.Component {
 
     let radios = updatedVehicles.map((vehicle, i) => {
       const name = vehicle.name;
-
       return (
         <span key={i}>
           <input
