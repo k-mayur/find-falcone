@@ -1,12 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { resetRedirect } from "../../store/actions/planet";
+import { resetRedirect, resetHandler } from "../../store/actions/planet";
 import "./Result.css";
 
 class Result extends React.Component {
   componentWillUnmount() {
     this.props.resetRedirect();
   }
+  tryAgainHandler = () => {
+    this.props.history.push("/");
+    this.props.resetHandler();
+  };
   render() {
     let msg = "Falcone was not found on any of the planet you selected.";
     let planet = "She could be anywhere on the remaining planet.";
@@ -19,12 +23,7 @@ class Result extends React.Component {
         <h3>{msg}</h3>
         <p>{planet}</p>
         <p>Time taken : {this.props.vehicle.time}</p>
-        <button
-          className="btn"
-          onClick={() => {
-            this.props.history.push("/");
-          }}
-        >
+        <button className="btn" onClick={this.tryAgainHandler}>
           Try Again
         </button>
       </div>
@@ -39,5 +38,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { resetRedirect }
+  { resetRedirect, resetHandler }
 )(Result);

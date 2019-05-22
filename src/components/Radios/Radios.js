@@ -31,18 +31,22 @@ class Radios extends React.Component {
   };
 
   render() {
-    const { updatedVehicles } = this.props.vehicle;
+    const { updatedVehicles, selectedPlanets } = this.props.vehicle;
+    const { planetNumber } = this.props;
+    let style;
+    let checked;
+    if (
+      selectedPlanets[planetNumber - 1] === "" ||
+      !selectedPlanets[planetNumber - 1]
+    ) {
+      style = { display: "none" };
+      checked = false;
+    } else {
+      style = {};
+    }
 
     let radios = updatedVehicles.map((vehicle, i) => {
-      const { planetNumber } = this.props;
       const name = vehicle.name;
-      let checked;
-      if (
-        !this.props.vehicle.selectedPlanets[planetNumber - 1] ||
-        this.props.vehicle.selectedPlanets[planetNumber - 1] === ""
-      ) {
-        checked = false;
-      }
 
       return (
         <span key={i}>
@@ -52,9 +56,7 @@ class Radios extends React.Component {
             value={name}
             id={name + planetNumber}
             checked={checked}
-            onClick={e =>
-              this.updateSelectedVehicles(e, this.props.planetNumber)
-            }
+            onClick={e => this.updateSelectedVehicles(e, planetNumber)}
           />
           <label htmlFor={name + planetNumber}>
             {name + " (" + vehicle.total_no + ")"}
@@ -63,16 +65,7 @@ class Radios extends React.Component {
       );
     });
     return (
-      <div
-        className="planet-vehicles"
-        style={
-          this.props.vehicle.selectedPlanets[this.props.planetNumber - 1] ===
-            "" ||
-          !this.props.vehicle.selectedPlanets[this.props.planetNumber - 1]
-            ? { display: "none" }
-            : {}
-        }
-      >
+      <div className="planet-vehicles" style={style}>
         {radios}
       </div>
     );

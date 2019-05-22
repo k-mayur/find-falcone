@@ -13,10 +13,6 @@ import "./Home.css";
 import swal from "@sweetalert/with-react";
 
 class Home extends React.Component {
-  resetHandle = () => {
-    this.props.resetHandler();
-  };
-
   findHandle = e => {
     e.preventDefault();
     const { selectedPlanets, selectedVehicles } = this.props.vehicle;
@@ -95,7 +91,7 @@ class Home extends React.Component {
             <button
               data-test="resetBtn"
               className="btn pos-abs"
-              onClick={this.resetHandle}
+              onClick={this.props.resetHandler}
             >
               Reset
             </button>

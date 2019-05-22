@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { resetHandler } from "../../store/actions/planet";
 import "./Header.css";
 
 class Header extends React.Component {
@@ -11,7 +13,11 @@ class Header extends React.Component {
         </div>
         <div className="header-btn">
           <Link to="/">
-            <button data-test="homeBtn" className="btn">
+            <button
+              data-test="homeBtn"
+              className="btn"
+              onClick={this.props.resetHandler}
+            >
               Home
             </button>
           </Link>
@@ -21,4 +27,7 @@ class Header extends React.Component {
   }
 }
 
-export default withRouter(Header);
+export default connect(
+  null,
+  { resetHandler }
+)(withRouter(Header));
