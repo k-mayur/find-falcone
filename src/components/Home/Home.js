@@ -16,25 +16,14 @@ class Home extends React.Component {
   findHandle = e => {
     e.preventDefault();
     const { selectedPlanets, selectedVehicles } = this.props.vehicle;
-    for (
-      let planetNumber = 1;
-      planetNumber <= this.props.vehicle.numPlanetsAllowed;
-      planetNumber++
-    ) {
-      if (
-        !selectedPlanets[planetNumber - 1] ||
-        selectedPlanets[planetNumber - 1] === ""
-      ) {
+    for (let i = 0; i < this.props.vehicle.numPlanetsAllowed; i++) {
+      if (!selectedPlanets[i] || selectedPlanets[i] === "") {
         return swal("select all four planets");
       }
-      if (
-        !selectedVehicles[planetNumber - 1] ||
-        selectedVehicles[planetNumber - 1] === ""
-      ) {
+      if (!selectedVehicles[i] || selectedVehicles[i] === "") {
         return swal("select all four vehicles");
       }
     }
-
     const planets = Object.values(selectedPlanets);
     const vehicles = Object.values(selectedVehicles);
     this.props.loading();
