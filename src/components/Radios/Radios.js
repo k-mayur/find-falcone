@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateSelectedVehicles } from "../../store/actions/vehicle";
-import swal from "sweetalert";
+import swal from "@sweetalert/with-react";
 
 class Radios extends React.Component {
   updateSelectedVehicles = (event, planetNumber) => {
