@@ -51,7 +51,7 @@ const updateSelectedPlanets = (state, planetObj) => {
   let selectedPlanets = Object.assign({}, state.selectedPlanets);
 
   if (planetName === "") {
-    selectedVehicles[planetNumber - 1] = undefined;
+    delete selectedVehicles[planetNumber - 1];
   }
   selectedPlanets[planetNumber - 1] = planetName;
 

@@ -33,12 +33,10 @@ class Radios extends React.Component {
   render() {
     const { updatedVehicles, selectedPlanets } = this.props.vehicle;
     const { planetNumber } = this.props;
+    const planet = selectedPlanets[planetNumber - 1];
     let style;
     let checked;
-    if (
-      selectedPlanets[planetNumber - 1] === "" ||
-      !selectedPlanets[planetNumber - 1]
-    ) {
+    if (planet === "" || !planet) {
       style = { display: "none" };
       checked = false;
     } else {
