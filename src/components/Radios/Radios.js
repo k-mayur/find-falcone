@@ -12,7 +12,12 @@ class Radios extends React.Component {
       0
     ) {
       event.preventDefault();
-      return swal("vehicle not available");
+      return swal(
+        <div>
+          <h1>Vehicle not Available!</h1>
+          <p>Please select another vehicle.</p>
+        </div>
+      );
     } else if (
       planet.planets.find(
         pl => pl.name === vehicle.selectedPlanets[planetNumber - 1]
@@ -20,7 +25,12 @@ class Radios extends React.Component {
       vehicle.vehicles.find(veh => veh.name === vehicleName).max_distance
     ) {
       event.preventDefault();
-      return swal("vehicle not reachable");
+      return swal(
+        <div>
+          <h1>Vehicle not Reachable!</h1>
+          <p>Please select another vehicle.</p>
+        </div>
+      );
     } else {
       if (vehicleName !== undefined) {
         this.props.updateSelectedVehicles(vehicleName, planetNumber);

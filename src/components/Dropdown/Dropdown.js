@@ -10,7 +10,12 @@ class Dropdown extends React.Component {
     const { selectedPlanets } = this.props.vehicle;
     if (planetName !== "") {
       if (Object.values(selectedPlanets).includes(planetName)) {
-        return swal("select another planet");
+        return swal(
+          <div>
+            <h1>Planet Already Selected!</h1>
+            <p>Please select another planet.</p>
+          </div>
+        );
       }
     }
     this.props.updateSelectedPlanets(planetName, planetNumber);

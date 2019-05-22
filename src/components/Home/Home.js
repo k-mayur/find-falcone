@@ -17,11 +17,17 @@ class Home extends React.Component {
     e.preventDefault();
     const { selectedPlanets, selectedVehicles } = this.props.vehicle;
     for (let i = 0; i < this.props.vehicle.numPlanetsAllowed; i++) {
-      if (!selectedPlanets[i] || selectedPlanets[i] === "") {
-        return swal("select all four planets");
-      }
-      if (!selectedVehicles[i] || selectedVehicles[i] === "") {
-        return swal("select all four vehicles");
+      if (
+        !selectedPlanets[i] ||
+        selectedPlanets[i] === "" ||
+        !selectedVehicles[i]
+      ) {
+        return swal(
+          <div>
+            <h1>Inputs Missing!</h1>
+            <p>Please enter all valid inputs.</p>
+          </div>
+        );
       }
     }
     const planets = Object.values(selectedPlanets);
