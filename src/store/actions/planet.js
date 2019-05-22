@@ -2,7 +2,6 @@ import {
   GET_PLANETS,
   FIND_RESULT,
   RESET_REDIRECT,
-  RESET_TIME,
   RESET,
   LOADING,
   SET_TOKEN
@@ -45,9 +44,6 @@ export const findHandler = (planetNames, vehicleNames) => dispatch => {
 export const resetRedirect = () => dispatch => {
   dispatch({
     type: RESET_REDIRECT
-  });
-  dispatch({
-    type: RESET_TIME
   });
 };
 

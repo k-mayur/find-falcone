@@ -13,7 +13,6 @@ class Dropdown extends React.Component {
         return swal("select another planet");
       }
     }
-
     this.props.updateSelectedPlanets(planetName, planetNumber);
   };
 
@@ -31,7 +30,7 @@ class Dropdown extends React.Component {
     for (let i = 0; i < this.props.vehicle.numPlanetsAllowed; i++) {
       const planetNumber = i + 1;
       dropdowns.push(
-        <div key={planetNumber} className="planet-wrap">
+        <div key={i} className="planet-wrap">
           <select
             className="planet-dropdown"
             onChange={e => this.updateSelectedPlanets(planetNumber, e)}

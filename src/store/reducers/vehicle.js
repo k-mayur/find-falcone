@@ -1,7 +1,6 @@
 import {
   GET_VEHICLES,
   UPDATE_PLANETS,
-  RESET_TIME,
   RESET,
   UPDATE_VEHICLES
 } from "../actions/actionTypes";
@@ -28,8 +27,6 @@ export default function(state = initialState, action) {
       return updateSelectedPlanets(state, action.payload);
     case UPDATE_VEHICLES:
       return updateSelectedVehicles(state, action.payload);
-    case RESET_TIME:
-      return { ...state, time: 0 };
     case RESET:
       return {
         ...state,
