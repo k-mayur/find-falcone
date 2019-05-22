@@ -4,7 +4,8 @@ import {
   findHandler,
   getPlanets,
   resetHandler,
-  loading
+  loading,
+  setToken
 } from "../../store/actions/planet";
 import { getVehicles } from "../../store/actions/vehicle";
 import Dropdown from "../Dropdown/Dropdown";
@@ -47,6 +48,7 @@ class Home extends React.Component {
   getData = () => {
     this.props.getPlanets();
     this.props.getVehicles();
+    this.props.setToken();
   };
   componentDidMount = () => {
     this.props.loading();
@@ -61,14 +63,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { selectedPlanets, selectedVehicles, time } = this.props.vehicle;
-
-    console.log(
-      selectedPlanets,
-      selectedVehicles,
-      time,
-      this.props.vehicle.vehicles
-    );
+    const { time } = this.props.vehicle;
     const { loading } = this.props.planet;
     if (loading) {
       return (
@@ -107,10 +102,7 @@ class Home extends React.Component {
           </div>
           <div className="home-time">
             <h4>
-              Time taken :{" "}
-              <span style={{ color: "darkred" }}>
-                {this.props.vehicle.time}
-              </span>{" "}
+              Time taken : <span style={{ color: "darkred" }}>{time}</span>{" "}
             </h4>
           </div>
         </div>
@@ -131,6 +123,7 @@ export default connect(
     getPlanets,
     getVehicles,
     resetHandler,
-    loading
+    loading,
+    setToken
   }
 )(Home);

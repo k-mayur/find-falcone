@@ -3,7 +3,8 @@ import {
   FIND_RESULT,
   RESET_REDIRECT,
   RESET,
-  LOADING
+  LOADING,
+  SET_TOKEN
 } from "../actions/actionTypes";
 import { updateState } from "../helper";
 
@@ -11,7 +12,8 @@ const initialState = {
   planets: [],
   result: {},
   redirect: false,
-  loding: false
+  loding: false,
+  token: null
 };
 
 export default function(state = initialState, action) {
@@ -20,6 +22,8 @@ export default function(state = initialState, action) {
       return updateState(state, { planets: action.payload });
     case FIND_RESULT:
       return updateResult(state, action.payload);
+    case SET_TOKEN:
+      return { ...state, token: action.payload };
     case RESET_REDIRECT:
       return { ...state, redirect: false };
     case RESET:

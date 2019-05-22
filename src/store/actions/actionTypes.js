@@ -7,3 +7,4 @@ export const RESET_TIME = "RESET_TIME";
 export const RESET = "RESET";
 export const LOADING = "LOADING";
 export const UPDATE_VEHICLES = "UPDATE_VEHICLES";
+export const SET_TOKEN = "SET_TOKEN";

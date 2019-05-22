@@ -5,7 +5,6 @@ import swal from "sweetalert";
 
 class Radios extends React.Component {
   updateSelectedVehicles = (event, planetNumber) => {
-    console.log(event.target.value, planetNumber);
     if (
       this.props.vehicle.updatedVehicles.filter(
         veh => veh.name === event.target.value

@@ -4,9 +4,11 @@ import {
   RESET_REDIRECT,
   RESET_TIME,
   RESET,
-  LOADING
+  LOADING,
+  SET_TOKEN
 } from "./actionTypes";
 import httpService from "../../services/httpService";
+import store from "../Store";
 
 export const getPlanets = () => dispatch => {
   httpService.get("/planets").then(planets => {
@@ -17,20 +19,25 @@ export const getPlanets = () => dispatch => {
   });
 };
 
-export const findHandler = (planetNames, vehicleNames) => dispatch => {
+export const setToken = () => dispatch => {
   httpService.post("/token", null).then(response => {
-    console.log(response.data.token);
-    const data = {
-      token: response.data.token,
-      planet_names: planetNames,
-      vehicle_names: vehicleNames
-    };
-    httpService.post("/find", data).then(response => {
-      console.log(response);
-      dispatch({
-        type: FIND_RESULT,
-        payload: response.data
-      });
+    dispatch({
+      type: SET_TOKEN,
+      payload: response.data.token
+    });
+  });
+};
+
+export const findHandler = (planetNames, vehicleNames) => dispatch => {
+  const data = {
+    token: store.getState().planet.token,
+    planet_names: planetNames,
+    vehicle_names: vehicleNames
+  };
+  httpService.post("/find", data).then(response => {
+    dispatch({
+      type: FIND_RESULT,
+      payload: response.data
     });
   });
 };

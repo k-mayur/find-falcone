@@ -44,19 +44,17 @@ export default function(state = initialState, action) {
 }
 
 const updateSelectedPlanets = (state, planetObj) => {
-  console.log(state, planetObj);
-  
   let selectedVehicles = state.selectedVehicles;
-  
+
   const { planetName, planetNumber, planets } = planetObj;
-  
-  let selectedPlanets = wObject.assign({}, state.selectedPlanets);
+
+  let selectedPlanets = Object.assign({}, state.selectedPlanets);
 
   if (planetName === "") {
     selectedVehicles[planetNumber - 1] = undefined;
   }
   selectedPlanets[planetNumber - 1] = planetName;
-  
+
   const timeAndCount = updateTimeAndCount(
     state,
     selectedPlanets,
@@ -74,7 +72,6 @@ const updateSelectedPlanets = (state, planetObj) => {
 
 const updateSelectedVehicles = (state, vehicleObj) => {
   let selectedPlanets = state.selectedPlanets;
-  console.log(state, vehicleObj);
   const { vehicleName, planetNumber, planets } = vehicleObj;
   let selectedVehicles = Object.assign({}, state.selectedVehicles);
   selectedVehicles[planetNumber - 1] = vehicleName;
@@ -98,54 +95,32 @@ const updateTimeAndCount = (
   selectedVehicles,
   planets
 ) => {
-  console.log(planets);
   const prevState = Object.assign({}, state);
   let timeTaken = 0;
-  // Fot standards use for loop from 0
-  for (
-    let planetNumber = 1;
-    planetNumber <= prevState.numPlanetsAllowed;
-    planetNumber++
-  ) {
-    // If value is present that it must not undefined. Why again checking.
-    // Use two conditions in single line
-    // Use one variable for selectedPlanets[planetNumber - 1], so we can use anywhere.
+  for (let i = 0; i < prevState.numPlanetsAllowed; i++) {
     if (
-      selectedPlanets[planetNumber - 1] !== "" &&
-      selectedPlanets[planetNumber - 1]
+      selectedPlanets[i] !== "" &&
+      selectedPlanets[i] &&
+      selectedVehicles[i]
     ) {
-      if (
-        selectedVehicles[planetNumber - 1] &&
-        selectedVehicles[planetNumber - 1] !== undefined
-      ) {
-        //Use find method instead of filter.
-        const distance = planets.filter(
-          planet => planet.name === selectedPlanets[planetNumber - 1]
-        )[0].distance;
-        //Use find method instead of filter.
-        const speed = prevState.vehicles.filter(
-          vehicle => vehicle.name === selectedVehicles[planetNumber - 1]
-        )[0].speed;
-
-        // Use () for distance / speed
-        timeTaken += distance / speed;
-      }
+      const distance = planets.find(
+        planet => planet.name === selectedPlanets[i]
+      ).distance;
+      const speed = prevState.vehicles.find(
+        vehicle => vehicle.name === selectedVehicles[i]
+      ).speed;
+      timeTaken += distance / speed;
     }
   }
-  const copy = prevState.vehicles.map(e => Object.assign({}, e));
+  const vehiclesArray = prevState.vehicles.map(vehicle =>
+    Object.assign({}, vehicle)
+  );
 
-  // Remove index from map
-
-  var sV = ["a","a","c","d"];
-  var sP = ['p1', 'p2', 'p3', null];
-
-
-  const updatedVehicles = copy.map((vehicle, i) => {
+  const updatedVehicles = vehiclesArray.map(vehicle => {
     if (Object.values(selectedVehicles).includes(vehicle.name)) {
       let count = Object.values(selectedVehicles).filter(
         veh => veh === vehicle.name
       ).length;
-      console.log(count);
       vehicle.total_no -= count;
     }
     return vehicle;
